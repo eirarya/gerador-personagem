@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Personagens Épicos</title>
+    <style>
+        body {
+            background-color: #0b0b0b;
+            color: #d4d4d4;
+            font-family: 'Cinzel', 'Georgia', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: radial-gradient(circle, #1a1a1a 0%, #050505 100%);
+        }
+
+        .container {
+            background: rgba(15, 15, 15, 0.9);
+            border: 2px solid #c5a059;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #f3e5ab;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .stats-box {
+            text-align: left;
+            border-top: 1px solid #444;
+            border-bottom: 1px solid #444;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .stat-item {
+            margin: 10px 0;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stat-label {
+            color: #c5a059;
+            font-weight: bold;
+        }
+
+        .stat-value {
+            color: #ffffff;
+            text-align: right;
+        }
+
+        button {
+            background: linear-gradient(to bottom, #c5a059, #8c6d33);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        button:hover {
+            background: linear-gradient(to bottom, #d4af37, #9c7a3b);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gerador de Lendas</h1>
+        <div class="stats-box" id="character-sheet">
+            <p style="text-align: center; color: #777;">Clique no botão abaixo para invocar seu personagem.</p>
+        </div>
+        <button onclick="gerarPersonagem()">Gerar Personagem</button>
+    </div>
+
+    <script>
+        const racas = ["Humano", "Elfo Sombrio", "Deus Menor", "Ciborgue", "Demônio", "Anjo Caído", "Dragão Ancestral", "Espectro", "Titã"];
+        const historias = [
+            "Foi banido do país", "Sobreviveu ao fim de um multiverso", "Acordou sem memória em uma cratera", 
+            "Fugiu das prisões celestiais", "Foi sacrificado e retornou das cinzas", "Vendeu a própria alma por poder"
+        ];
+        const personalidades = ["Corajoso", "Sádico", "Frio e Calculador", "Arrogante", "Insano", "Honrado", "Caótico"];
+        const forcas = ["Cósmico", "Multiversal", "Planetário", "Divino", "Subatômico", "Imaginário"];
+        const velocidades = ["Universal", "Inconcebível", "Hiperluminar", "Onipresente", "Instantânea"];
+        const durabilidades = ["Regenerativa", "Absoluta", "Imune a Danos Físicos", "Quântica", "Desconhecida"];
+        const qis = ["Semi-Onisciente", "Superdotado", "Tático Perfeito", "Instintivo", "Caótico Brilhante"];
+        const combates = ["Iniciante", "Mestre Supremo", "Gênio Indomável", "Lendário", "Imprevisível"];
+        const armas = ["Morningstar", "Katana Dimensional", "Foice do Vazio", "Manoplas Estelares", "Nenhuma (Punhos Nus)", "Cajado do Eclipse"];
+        const poderes = ["Tempo de Preparo Absoluto", "Manipulação da Realidade", "Apagagar Memórias", "Anulaçao de Poderes", "Portal Dimensional", "Velocidade do Pensamento"];
+        const fraquezas = ["Coração Mole", "Excesso de Confiança", "Vulnerável a Emoções", "Perda de Memória", "Fome Insaciável"];
+        const titulos = ["A Ira do Infinito", "O Fim dos Dias", "O Monstro Sagrado", "A Lenda Silenciosa", "O Destruidor de Mundos", "O Desprezado"];
+
+        function getRandomItem(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        function gerarPersonagem() {
+            const idade = Math.floor(Math.random() * 5000) + 1;
+            const altura = (Math.random() * 2.5 + 1.2).toFixed(2) + "m";
+
+            const personagem = {
+                "Raça": getRandomItem(racas),
+                "Idade": idade + (idade === 1 ? " ano" : " anos"),
+                "Altura": altura,
+                "História": getRandomItem(historias),
+                "Personalidade": getRandomItem(personalidades),
+                "Força": getRandomItem(forcas),
+                "Velocidade": getRandomItem(velocidades),
+                "Durabilidade": getRandomItem(durabilidades),
+                "QI": getRandomItem(qis),
+                "Combate": getRandomItem(combates),
+                "Arma": getRandomItem(armas),
+                "Poder Extra": getRandomItem(poderes),
+                "Fraqueza": getRandomItem(fraquezas),
+                "Título": getRandomItem(titulos)
+            };
+
+            let htmlContent = "";
+            for (const [key, value] of Object.entries(personagem)) {
+                htmlContent += `
+                    <div class="stat-item">
+                        <span class="stat-label">${key}:</span>
+                        <span class="stat-value">${value.toUpperCase()}</span>
+                    </div>
+                `;
+            }
+
+            document.getElementById("character-sheet").innerHTML = htmlContent;
+        }
+    </script>
+</body>
+</html>
